@@ -1,0 +1,136 @@
+{
+  "HomePage": {
+    "title": "Baba Mara - Vaša Digitalna Gatara",
+    "description": "Dobijte mistična tumačenja od Babe Mare, vašeg AI duhovnog savetnika. Tumačenje šoljice kafe, tarot i više.",
+    "welcome": "Dobrodošli kod Babe Mare",
+    "subtitle": "Vaš AI duhovni savetnik za tumačenje šoljice kafe, tarot i mistično vođenje",
+    "cta": {
+      "start": "Dobijte Svoje Tumačenje",
+      "learnMore": "Saznajte Više",
+      "tryFree": "Probajte Besplatno"
+    },
+    "features": {
+      "title": "Mistično Vođenje sa AI Tehnologijom",
+      "coffee": {
+        "title": "Tumačenje Šoljice Kafe",
+        "description": "Tradicionalno gatanje iz šoljice kafe sa AI tumačenjem"
+      },
+      "tarot": {
+        "title": "Tarot Čitanje",
+        "description": "Drevna tarot mudrost u kombinaciji sa modernim AI uvidima"
+      },
+      "voice": {
+        "title": "Glasovna Interakcija",
+        "description": "Razgovarajte sa Babom Marom putem poziva u realnom vremenu"
+      },
+      "multilingual": {
+        "title": "Višejezična Podrška",
+        "description": "Dostupno na engleskom, turskom i srpskom jeziku"
+      }
+    },
+    "pricing": {
+      "title": "Izaberite Vaš Plan",
+      "single": "Jedno Tumačenje",
+      "subscription": "Mesečna Pretplata",
+      "topup": "Dopuna Paketa"
+    },
+    "disclaimer": "Ova tumačenja generiše digitalni savetnik zasnovan na veštačkoj inteligenciji i namenjena su isključivo za zabavne i introspektivne svrhe. Nisu profesionalni saveti."
+  },
+  "NotFound": {
+    "message": "Stranica nije pronađena",
+    "backHome": "Nazad na Početnu"
+  },
+  "Common": {
+    "loading": "Učitavanje...",
+    "error": "Došlo je do greške",
+    "tryAgain": "Pokušaj Ponovo",
+    "cancel": "Otkaži",
+    "confirm": "Potvrdi",
+    "save": "Sačuvaj",
+    "delete": "Obriši",
+    "edit": "Izmeni",
+    "close": "Zatvori"
+  },
+  "Auth": {
+    "signIn": "Prijavi se",
+    "signUp": "Registruj se",
+    "signOut": "Odjavi se",
+    "email": "Email",
+    "password": "Lozinka",
+    "confirmPassword": "Potvrdi Lozinku",
+    "forgotPassword": "Zaboravili ste lozinku?",
+    "noAccount": "Nemate nalog?",
+    "hasAccount": "Već imate nalog?",
+    "continueWithGoogle": "Nastavi sa Google",
+    "orDivider": "Ili",
+    "guestMode": "Nastavi kao Gost",
+    "loading": "Učitavanje..."
+  },
+  "Dashboard": {
+    "title": "Moj Dashboard",
+    "remainingReadings": "Preostala Tumačenja",
+    "readingHistory": "Istorija Tumačenja",
+    "askNewQuestion": "Postavi Novo Pitanje",
+    "noReadings": "Još nemate tumačenja",
+    "getReading": "Dobijte Prvo Tumačenje"
+  },
+  "Reading": {
+    "title": "Dobijte Vaše Tumačenje",
+    "askQuestion": "Šta želite da znate?",
+    "questionPlaceholder": "Postavite svoje pitanje ovde...",
+    "submit": "Dobij Moje Tumačenje",
+    "listening": "Slušam...",
+    "processing": "Baba Mara čita vašu sudbinu...",
+    "disclaimer": "Ova tumačenja generiše digitalni savetnik zasnovan na veštačkoj inteligenciji i namenjena su isključivo za zabavne i introspektivne svrhe. Nisu profesionalni saveti."
+  },
+  "Payment": {
+    "title": "Izaberite Vaš Plan",
+    "singleReading": "Jedno Tumačenje",
+    "singleReadingPrice": "$1.99",
+    "singleReadingDesc": "Jedno tumačenje sudbine",
+    "subscription": "Mesečna Pretplata",
+    "subscriptionPrice": "$9.99/mesečno",
+    "subscriptionDesc": "12 tumačenja mesečno",
+    "topUp": "Dopuna",
+    "topUpPrice": "$9.99",
+    "topUpDesc": "10 dodatnih tumačenja",
+    "proceed": "Nastavi na Plaćanje",
+    "success": "Plaćanje Uspešno!",
+    "failed": "Plaćanje Neuspešno"
+  },
+  "Admin": {
+    "title": "Admin Panel",
+    "users": "Korisnici",
+    "transactions": "Transakcije",
+    "errors": "Praćenje Grešaka",
+    "totalUsers": "Ukupno Korisnika",
+    "totalRevenue": "Ukupan Prihod",
+    "activeSubscriptions": "Aktivne Pretplate",
+    "resetCredits": "Resetuj Kredite",
+    "viewDetails": "Pogledaj Detalje"
+  },
+  "VoiceReading": {
+    "title": "Glasovno Tumačenje sa Babom Marom",
+    "subtitle": "Razgovarajte direktno sa vašim duhovnim savetnikom putem glasovnog poziva u realnom vremenu",
+    "credits": "Dostupni Krediti",
+    "noCredits": {
+      "title": "Nedovoljno Kredita",
+      "message": "Potreban vam je najmanje 1 kredit da biste započeli sesiju glasovnog tumačenja.",
+      "action": "Nabavite Više Kredita"
+    },
+    "guestWarning": {
+      "title": "Gost Režim",
+      "message": "Napravite nalog da biste sačuvali istoriju glasovnih tumačenja i pristupili svim funkcijama.",
+      "action": "Napravi Nalog"
+    },
+    "instructions": {
+      "title": "Kako Funkcioniše",
+      "step1": "Izaberite željeni tip tumačenja (Šoljica Kafe ili Tarot)",
+      "step2": "Kliknite 'Započni Poziv' da se povežete sa Babom Marom",
+      "step3": "Dozvolite pristup mikrofonu kada budete upitani",
+      "step4": "Postavite svoja pitanja prirodno putem glasa",
+      "step5": "Slušajte mistično vođenje Babe Mare u realnom vremenu"
+    },
+    "disclaimer": "Ova tumačenja generiše digitalni savetnik zasnovan na veštačkoj inteligenciji i namenjena su isključivo za zabavne i introspektivne svrhe. Nisu profesionalni saveti."
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "HomePage": {
+    "title": "Baba Mara - Dijital Falcınız",
+    "description": "Baba Mara'dan mistik fallar alın, yapay zeka destekli ruhani danışmanınız. Kahve falı, tarot ve daha fazlası.",
+    "welcome": "Baba Mara'ya Hoş Geldiniz",
+    "subtitle": "Kahve falı, tarot ve mistik rehberlik için yapay zeka destekli ruhani danışmanınız",
+    "cta": {
+      "start": "Falınızı Görün",
+      "learnMore": "Daha Fazla Bilgi",
+      "tryFree": "Ücretsiz Deneyin"
+    },
+    "features": {
+      "title": "Yapay Zeka Destekli Mistik Rehberlik",
+      "coffee": {
+        "title": "Kahve Falı",
+        "description": "Geleneksel Türk kahvesi falı yapay zeka yorumlarıyla"
+      },
+      "tarot": {
+        "title": "Tarot Falı",
+        "description": "Eski tarot bilgeliği modern yapay zeka içgörüleriyle birleşti"
+      },
+      "voice": {
+        "title": "Sesli Etkileşim",
+        "description": "Baba Mara ile gerçek zamanlı sesli görüşme yapın"
+      },
+      "multilingual": {
+        "title": "Çoklu Dil Desteği",
+        "description": "İngilizce, Türkçe ve Sırpça dillerinde kullanılabilir"
+      }
+    },
+    "pricing": {
+      "title": "Planınızı Seçin",
+      "single": "Tek Fal",
+      "subscription": "Aylık Abonelik",
+      "topup": "Ek Paket"
+    },
+    "disclaimer": "Bu fallar yapay zeka tabanlı bir dijital danışman tarafından üretilmektedir ve yalnızca eğlence ve içsel düşünme amaçlıdır. Profesyonel tavsiye değildir."
+  },
+  "NotFound": {
+    "message": "Sayfa bulunamadı",
+    "backHome": "Ana Sayfaya Dön"
+  },
+  "Common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "tryAgain": "Tekrar Dene",
+    "cancel": "İptal",
+    "confirm": "Onayla",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "close": "Kapat"
+  },
+  "Auth": {
+    "signIn": "Giriş Yap",
+    "signUp": "Kayıt Ol",
+    "signOut": "Çıkış Yap",
+    "email": "E-posta",
+    "password": "Şifre",
+    "confirmPassword": "Şifreyi Onayla",
+    "forgotPassword": "Şifremi Unuttum?",
+    "noAccount": "Hesabınız yok mu?",
+    "hasAccount": "Zaten hesabınız var mı?",
+    "continueWithGoogle": "Google ile Devam Et",
+    "orDivider": "Veya",
+    "guestMode": "Misafir Olarak Devam Et",
+    "loading": "Yükleniyor..."
+  },
+  "Dashboard": {
+    "title": "Kontrol Panelim",
+    "remainingReadings": "Kalan Fal Sayısı",
+    "readingHistory": "Fal Geçmişi",
+    "askNewQuestion": "Yeni Soru Sor",
+    "noReadings": "Henüz falınız yok",
+    "getReading": "İlk Falınızı Görün"
+  },
+  "Reading": {
+    "title": "Falınızı Alın",
+    "askQuestion": "Ne öğrenmek istersiniz?",
+    "questionPlaceholder": "Sorunuzu buraya yazın...",
+    "submit": "Falımı Gör",
+    "listening": "Dinliyor...",
+    "processing": "Baba Mara falınıza bakıyor...",
+    "disclaimer": "Bu fallar yapay zeka tabanlı bir dijital danışman tarafından üretilmektedir ve yalnızca eğlence ve içsel düşünme amaçlıdır. Profesyonel tavsiye değildir."
+  },
+  "Payment": {
+    "title": "Planınızı Seçin",
+    "singleReading": "Tek Fal",
+    "singleReadingPrice": "$1.99",
+    "singleReadingDesc": "Bir fal görüntüleme",
+    "subscription": "Aylık Abonelik",
+    "subscriptionPrice": "$9.99/ay",
+    "subscriptionDesc": "Ayda 12 fal",
+    "topUp": "Ek Paket",
+    "topUpPrice": "$9.99",
+    "topUpDesc": "10 ek fal",
+    "proceed": "Ödemeye Geç",
+    "success": "Ödeme Başarılı!",
+    "failed": "Ödeme Başarısız"
+  },
+  "Admin": {
+    "title": "Yönetici Paneli",
+    "users": "Kullanıcılar",
+    "transactions": "İşlemler",
+    "errors": "Hata İzleme",
+    "totalUsers": "Toplam Kullanıcı",
+    "totalRevenue": "Toplam Gelir",
+    "activeSubscriptions": "Aktif Abonelikler",
+    "resetCredits": "Kredileri Sıfırla",
+    "viewDetails": "Detayları Görüntüle"
+  },
+  "VoiceReading": {
+    "title": "Baba Mara ile Sesli Fal",
+    "subtitle": "Ruhani danışmanınızla gerçek zamanlı sesli görüşme yapın",
+    "credits": "Mevcut Kredi",
+    "noCredits": {
+      "title": "Yetersiz Kredi",
+      "message": "Sesli fal seansı başlatmak için en az 1 krediniz olması gerekir.",
+      "action": "Daha Fazla Kredi Alın"
+    },
+    "guestWarning": {
+      "title": "Misafir Modu",
+      "message": "Sesli fal geçmişinizi kaydetmek ve tüm özelliklere erişmek için bir hesap oluşturun.",
+      "action": "Hesap Oluştur"
+    },
+    "instructions": {
+      "title": "Nasıl Çalışır",
+      "step1": "Tercih ettiğiniz fal türünü seçin (Kahve Falı veya Tarot)",
+      "step2": "Baba Mara ile bağlantı kurmak için 'Aramayı Başlat' düğmesine tıklayın",
+      "step3": "İstendiğinde mikrofon izinlerini verin",
+      "step4": "Sorularınızı sesli olarak doğal bir şekilde sorun",
+      "step5": "Baba Mara'nın mistik rehberliğini gerçek zamanlı olarak dinleyin"
+    },
+    "disclaimer": "Bu fallar yapay zeka tabanlı bir dijital danışman tarafından üretilmektedir ve yalnızca eğlence ve içsel düşünme amaçlıdır. Profesyonel tavsiye değildir."
+  }
+}

@@ -4,148 +4,152 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Baba Mara** is an AI-powered spiritual advisor platform offering digital fortune telling (coffee cup and tarot readings) through voice-based interactions. The platform targets Turkish and English-speaking markets with multilingual support (TR, EN, SR).
+**Baba Mara** is an AI-powered spiritual advisor platform offering digital fortune telling (coffee cup and tarot readings) through voice-based interactions. The platform targets Turkish, English, and Serbian-speaking markets.
 
 **Tech Stack:**
-- Frontend: Next.js 14 (App Router)
-- Deployment: Vercel (auto-deploy from GitHub main)
-- Database/Auth: Supabase
-- Payments: Payten API (REST integration)
-- Voice AI: ElevenLabs or cost-effective alternative
-- Real-time Audio: LiveKit (voice-only calls)
-- Repository: GitHub (main branch)
+- **Framework**: Next.js 15.5.4 with App Router
+- **Runtime**: React 19.1.0
+- **Language**: TypeScript (strict mode)
+- **Styling**: Tailwind CSS v4
+- **Database/Auth**: Supabase (`@supabase/supabase-js`, `@supabase/ssr`)
+- **i18n**: next-intl v3.0 (locales: en, tr, sr)
+- **Real-time Voice**: LiveKit (client + server SDK v2.0)
+- **Voice AI**: ElevenLabs or cost-effective alternative
+- **Payments**: Payten API (REST integration)
+- **Mobile**: Capacitor v6 (Android support)
+- **Deployment**: Vercel (auto-deploy from GitHub main branch)
 
-**Domain Structure:**
-- 🇹🇷 Turkish: fal.baba-mara.com → babamara.com/tr
-- 🇺🇸 English: mysticcup.baba-mara.com → babamara.com/en
-- 🇷🇸 Serbian: baba-mara.com/sr → baba-mara.com
+## Development Commands
+
+```bash
+# Development with Turbopack
+npm run dev
+
+# Production build with Turbopack
+npm run build
+
+# Start production server
+npm start
+
+# Lint codebase
+npm run lint
+```
 
 ## Architecture
 
 ### Directory Structure
+
 ```
-/baba-mara
-├── app/
-│   ├── tr/              # Turkish locale routes
-│   ├── en/              # English locale routes
-│   ├── sr/              # Serbian locale routes
-│   ├── components/      # Shared React components
-│   └── api/             # API routes
-├── lib/
-│   ├── livekit/         # LiveKit integration
-│   ├── payten/          # Payten payment API
-│   ├── supabase/        # Supabase client and helpers
-│   └── elevenlabs/      # Voice synthesis integration
-├── context.md           # Auto-updated project context
-├── README.md
-└── .env.local
+/baba-mara.com
+├── app/                    # Next.js App Router
+│   ├── layout.tsx         # Root layout with Geist fonts
+│   ├── page.tsx           # Homepage
+│   └── globals.css        # Global Tailwind styles
+├── lib/                    # Utility libraries and integrations
+│   ├── supabase/
+│   │   ├── client.ts      # Browser client (createBrowserClient)
+│   │   └── server.ts      # Server client with cookie handling
+│   ├── livekit/           # LiveKit real-time voice integration
+│   ├── payten/            # Payten payment API integration
+│   └── elevenlabs/        # Voice synthesis integration
+├── messages/              # i18n translation files (en.json, tr.json, sr.json)
+├── i18n.ts                # next-intl configuration
+├── next.config.ts         # Next.js configuration
+├── tsconfig.json          # TypeScript config (paths: @/* → ./*)
+└── .env.local             # Environment variables (not in git)
 ```
 
-### Core Modules
+### Multi-language Support
 
-**Authentication (Supabase)**
+The app uses `next-intl` with three locales defined in `i18n.ts`:
+- **en**: English (`mysticcup.baba-mara.com` → `babamara.com/en`)
+- **tr**: Turkish (`fal.baba-mara.com` → `babamara.com/tr`)
+- **sr**: Serbian (`baba-mara.com/sr`)
+
+Translation files are stored in `/messages/{locale}.json`. The i18n config validates locales and dynamically imports the appropriate message bundle.
+
+### Supabase Integration
+
+Two client patterns are implemented:
+
+**Browser Client** (`lib/supabase/client.ts`):
+- Uses `createBrowserClient` from `@supabase/ssr`
+- For client components and browser-side operations
+- Requires `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+**Server Client** (`lib/supabase/server.ts`):
+- Uses `createServerClient` from `@supabase/ssr`
+- For server components, API routes, and server actions
+- Handles cookie-based session management with Next.js cookies API
+- Implements `getAll()` and `setAll()` cookie handlers
+
+### Environment Variables
+
+Required in `.env.local`:
+```bash
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+# Additional variables for LiveKit, Payten, ElevenLabs
+```
+
+### Path Aliases
+
+TypeScript is configured with `@/*` pointing to the root directory:
+```typescript
+import { createClient } from '@/lib/supabase/client'
+```
+
+## Key Integrations (Planned)
+
+### Authentication (Supabase)
 - Email + password registration/login
 - Google OAuth integration
 - Optional anonymous "guest" mode for first reading
 
-**User Dashboard**
-- Reading history view
-- Remaining readings counter
-- "Ask New Question" action
-
-**AI Reading Engine**
-- Input: User's text question
-- Processing: Claude (or similar) generates mystical narrative
-- Output: Audio response via ElevenLabs API
-- LiveKit integration for real-time voice chat (audio-only)
-
-**Payment System (Payten REST API)**
+### Payment System (Payten REST API)
 - Single reading: $1.99
 - Monthly subscription: $9.99 (12 readings)
 - Top-up: $9.99 (10 additional readings)
 
-**Admin Panel**
+### Voice System (LiveKit + ElevenLabs)
+- Real-time voice communication (audio-only)
+- AI-generated mystical responses
+- Placeholder UI for future Heygen avatar integration
+
+### User Features
+- Dashboard with reading history
+- Remaining readings counter
+- "Ask New Question" flow
+
+### Admin Panel
 - User/transaction overview
 - Error monitoring
-- Manual credit reset capability
+- Manual credit management
 
-### Multi-language Implementation
-Uses Next.js i18n with three locales (en, tr, sr). All UI text and AI responses must be localized.
+## Legal Requirements
 
-### Legal Disclaimer
 Every language version must display:
 > "These readings are generated by an AI-based digital advisor and are intended solely for entertainment and introspective purposes. They are not professional advice."
 
 ## Development Workflow
 
-### Iterative Development Process
-Claude Code operates in 3-5 iteration cycles:
-1. Create initial code and project structure
-2. Implement key integrations (Supabase, LiveKit, Payten)
-3. Test and fix issues
-4. Compress context into context.md
-5. Request confirmation before git push to main
-6. Auto-deploy to Vercel
+### Git and Deployment
+- **Repository**: GitHub (main branch)
+- **Deployment**: Automatic Vercel deployment on push to main
+- **Important**: Always request confirmation from Aleksandar before pushing to main
+- Verify build success in Vercel after deployment
 
 ### Context Management
-After every 3-5 iterations, automatically update `context.md` with:
+The project uses `context.md` for tracking development progress. After 3-5 iterations, update it with:
 - Date
-- What was completed
+- Completed work
 - Code/architecture changes
 - TODO sections
 
-### Git Workflow
-- Always ask Aleksandar for confirmation before pushing to main
-- Main branch triggers automatic Vercel deployment
-- Verify build success after deployment
+## TypeScript Configuration
 
-### Integration Points
-
-**Supabase Setup:**
-- Configure auth providers (email, Google)
-- Create tables: users, readings, transactions, subscriptions
-- Set up row-level security policies
-- Store reading history and user credits
-
-**LiveKit Integration:**
-- Real-time voice communication (audio-only)
-- Placeholder UI for future Heygen avatar integration
-- Handle connection lifecycle and error states
-
-**Payten API:**
-- Use REST-based integration (document-based)
-- Handle payment webhooks for subscription management
-- Implement secure payment flow with error handling
-
-**Voice Synthesis:**
-- ElevenLabs API or cost-effective alternative
-- Mystical tone and character consistency
-- Support for multiple languages (EN, TR, SR)
-
-### Key Considerations
-
-**User Confirmation Required For:**
-- Architecture changes
-- Payment system modifications
-- Deployment operations
-
-**Documentation:**
-- Use Claude 4.5 Sonnet for development
-- Maintain context.md automatically
-- Document all API integrations and configuration
-
-**Security:**
-- Never commit API keys or secrets
-- Use environment variables (.env.local)
-- Implement proper RBAC in Supabase
-
-### Development Commands
-
-When the project is initialized, this section will contain:
-- Build commands
-- Development server
-- Testing procedures
-- Linting and formatting
-- Database migrations
-
-(To be populated once project structure is created)
+- **Target**: ES2017
+- **Module**: esnext with bundler resolution
+- **Strict mode**: enabled
+- **JSX**: preserve (handled by Next.js)
+- **Path mapping**: `@/*` resolves to project root
