@@ -1,13 +1,27 @@
 import Anthropic from '@anthropic-ai/sdk'
 import type { ReadingType, Locale } from '@/lib/supabase/types'
 
-if (!process.env.ANTHROPIC_API_KEY) {
-  throw new Error('ANTHROPIC_API_KEY is not set in environment variables')
+// Initialize Anthropic client lazily
+let anthropic: Anthropic | null = null
+
+function getAnthropicClient(): Anthropic {
+  if (!anthropic) {
+    if (!process.env.ANTHROPIC_API_KEY) {
+      throw new Error('ANTHROPIC_API_KEY is not set in environment variables')
+    }
+    anthropic = new Anthropic({
+      apiKey: process.env.ANTHROPIC_API_KEY,
+    })
+  }
+  return anthropic
 }
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-})
+// Check which AI provider is available
+function getAvailableProvider(): 'anthropic' | 'openai' | null {
+  if (process.env.ANTHROPIC_API_KEY) return 'anthropic'
+  if (process.env.OPENAI_API_KEY) return 'openai'
+  return null
+}
 
 // System prompts for different reading types
 const COFFEE_READING_PROMPT = `You are Baba Mara, a wise and mystical fortune teller with deep knowledge of Turkish coffee cup reading (tasseography). You have decades of experience interpreting the patterns, symbols, and signs left in coffee grounds.
@@ -59,39 +73,52 @@ export async function generateReading(
   question: string,
   locale: Locale
 ): Promise<string> {
-  try {
-    const systemPrompt =
-      readingType === 'coffee' ? COFFEE_READING_PROMPT : TAROT_READING_PROMPT
+  const provider = getAvailableProvider()
 
-    const userPrompt = `${LANGUAGE_CONTEXTS[locale]}
+  if (!provider) {
+    throw new Error('No AI provider configured. Please set ANTHROPIC_API_KEY or OPENAI_API_KEY in environment variables.')
+  }
+
+  // Try Anthropic first if available, otherwise use OpenAI
+  if (provider === 'anthropic') {
+    try {
+      const systemPrompt =
+        readingType === 'coffee' ? COFFEE_READING_PROMPT : TAROT_READING_PROMPT
+
+      const userPrompt = `${LANGUAGE_CONTEXTS[locale]}
 
 Question: "${question}"
 
 Please provide a ${readingType} reading for this question. Be specific, mystical, and insightful.`
 
-    const message = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
-      max_tokens: 1024,
-      temperature: 0.9, // Higher temperature for more creative/mystical responses
-      system: systemPrompt,
-      messages: [
-        {
-          role: 'user',
-          content: userPrompt,
-        },
-      ],
-    })
+      const client = getAnthropicClient()
+      const message = await client.messages.create({
+        model: 'claude-3-5-sonnet-20241022',
+        max_tokens: 1024,
+        temperature: 0.9, // Higher temperature for more creative/mystical responses
+        system: systemPrompt,
+        messages: [
+          {
+            role: 'user',
+            content: userPrompt,
+          },
+        ],
+      })
 
-    // Extract text from response
-    const textContent = message.content.find((block) => block.type === 'text')
-    if (!textContent || textContent.type !== 'text') {
-      throw new Error('No text content in Claude response')
+      // Extract text from response
+      const textContent = message.content.find((block) => block.type === 'text')
+      if (!textContent || textContent.type !== 'text') {
+        throw new Error('No text content in Claude response')
+      }
+
+      return textContent.text
+    } catch (error) {
+      console.error('Error generating reading with Claude:', error)
+      throw new Error('Failed to generate reading. Please try again.')
     }
-
-    return textContent.text
-  } catch (error) {
-    console.error('Error generating reading with Claude:', error)
-    throw new Error('Failed to generate reading. Please try again.')
+  } else {
+    // Use OpenAI as fallback
+    return generateReadingWithOpenAI(readingType, question, locale)
   }
 }
 

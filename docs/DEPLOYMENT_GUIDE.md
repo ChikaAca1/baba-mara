@@ -91,10 +91,12 @@ PAYTEN_MERCHANT_ID=your-merchant-id
 PAYTEN_API_KEY=your-payten-key
 PAYTEN_SECRET_KEY=your-payten-secret
 
-# OpenAI (or other AI provider)
-OPENAI_API_KEY=your-openai-key
-# ili
+# AI Provider (at least one required)
+# Anthropic Claude (preferred)
 ANTHROPIC_API_KEY=your-anthropic-key
+# OR OpenAI (fallback)
+OPENAI_API_KEY=your-openai-key
+# Note: System will use Anthropic if available, otherwise falls back to OpenAI
 ```
 
 ### How to Add:
