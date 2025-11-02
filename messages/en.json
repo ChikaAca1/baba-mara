@@ -40,6 +40,42 @@
     "message": "Page not found",
     "backHome": "Back to Home"
   },
+  "Error": {
+    "title": "Something went wrong",
+    "subtitle": "We're sorry, but an unexpected error occurred",
+    "message": "An error occurred while processing your request. Our team has been notified and is working on a fix.",
+    "tryAgain": "Try Again",
+    "goHome": "Go to Homepage",
+    "refresh": "Refresh Page",
+    "contactSupport": "Contact Support",
+    "api": {
+      "insufficientCredits": "You don't have enough credits. Please purchase more to continue.",
+      "unauthorized": "You need to be logged in to access this feature.",
+      "forbidden": "You don't have permission to access this resource.",
+      "notFound": "The requested resource was not found.",
+      "serverError": "A server error occurred. Please try again later.",
+      "networkError": "Network error. Please check your internet connection.",
+      "timeout": "The request took too long. Please try again.",
+      "validationError": "Please check your input and try again.",
+      "paymentFailed": "Payment processing failed. Please try again or use a different payment method.",
+      "readingFailed": "Failed to generate reading. Please try again.",
+      "voiceConnectionFailed": "Failed to connect to voice service. Please check your microphone permissions."
+    },
+    "form": {
+      "required": "This field is required",
+      "invalidEmail": "Please enter a valid email address",
+      "passwordTooShort": "Password must be at least 8 characters",
+      "passwordMismatch": "Passwords do not match",
+      "invalidInput": "Invalid input. Please check and try again."
+    },
+    "codes": {
+      "INSUFFICIENT_CREDITS": "Insufficient credits",
+      "INVALID_SESSION": "Your session has expired. Please log in again.",
+      "PAYMENT_DECLINED": "Payment was declined by your bank",
+      "READING_TIMEOUT": "Reading generation timed out",
+      "VOICE_UNAVAILABLE": "Voice service is temporarily unavailable"
+    }
+  },
   "Common": {
     "loading": "Loading...",
     "error": "An error occurred",

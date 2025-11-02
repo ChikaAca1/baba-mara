@@ -28,6 +28,54 @@ const intlMiddleware = createMiddleware({
 });
 
 export async function middleware(request: NextRequest) {
+  // SUBDOMAIN ROUTING
+  // Map subdomains to locales:
+  // fal.baba-mara.com → tr (Turkish)
+  // mysticcup.baba-mara.com → en (English)
+  // baba-mara.com → sr (Serbian - default)
+
+  const hostname = request.headers.get('host') || ''
+  let localeFromSubdomain: string | null = null
+
+  // Check for Turkish subdomain
+  if (hostname.startsWith('fal.')) {
+    localeFromSubdomain = 'tr'
+  }
+  // Check for English subdomain
+  else if (hostname.startsWith('mysticcup.')) {
+    localeFromSubdomain = 'en'
+  }
+  // Default to Serbian for main domain
+  else if (hostname.includes('baba-mara.com')) {
+    localeFromSubdomain = 'sr'
+  }
+
+  // If subdomain detected and path doesn't have locale, redirect to correct locale
+  if (localeFromSubdomain) {
+    const { pathname } = request.nextUrl
+    const pathnameHasLocale = locales.some(
+      (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+    )
+
+    // If path doesn't have locale prefix, add the subdomain's locale
+    if (!pathnameHasLocale && pathname !== '/') {
+      const newUrl = new URL(request.url)
+      newUrl.pathname = `/${localeFromSubdomain}${pathname}`
+      return NextResponse.redirect(newUrl)
+    }
+
+    // If path has different locale than subdomain, redirect to subdomain's locale
+    if (pathnameHasLocale) {
+      const pathLocale = pathname.split('/')[1]
+      if (pathLocale !== localeFromSubdomain) {
+        const newUrl = new URL(request.url)
+        const pathWithoutLocale = pathname.replace(`/${pathLocale}`, '')
+        newUrl.pathname = `/${localeFromSubdomain}${pathWithoutLocale || '/'}`
+        return NextResponse.redirect(newUrl)
+      }
+    }
+  }
+
   // First, run the i18n middleware
   const intlResponse = intlMiddleware(request);
 

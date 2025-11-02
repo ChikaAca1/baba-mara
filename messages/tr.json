@@ -40,6 +40,42 @@
     "message": "Sayfa bulunamadı",
     "backHome": "Ana Sayfaya Dön"
   },
+  "Error": {
+    "title": "Bir şeyler yanlış gitti",
+    "subtitle": "Üzgünüz, beklenmeyen bir hata oluştu",
+    "message": "İsteğiniz işlenirken bir hata oluştu. Ekibimiz bilgilendirildi ve düzeltme üzerinde çalışıyor.",
+    "tryAgain": "Tekrar Dene",
+    "goHome": "Ana Sayfaya Git",
+    "refresh": "Sayfayı Yenile",
+    "contactSupport": "Destek ile İletişime Geç",
+    "api": {
+      "insufficientCredits": "Yeterli krediniz yok. Devam etmek için lütfen daha fazla satın alın.",
+      "unauthorized": "Bu özelliğe erişmek için giriş yapmanız gerekiyor.",
+      "forbidden": "Bu kaynağa erişim izniniz yok.",
+      "notFound": "İstenen kaynak bulunamadı.",
+      "serverError": "Sunucu hatası oluştu. Lütfen daha sonra tekrar deneyin.",
+      "networkError": "Ağ hatası. Lütfen internet bağlantınızı kontrol edin.",
+      "timeout": "İstek çok uzun sürdü. Lütfen tekrar deneyin.",
+      "validationError": "Lütfen girdinizi kontrol edin ve tekrar deneyin.",
+      "paymentFailed": "Ödeme işlemi başarısız oldu. Lütfen tekrar deneyin veya farklı bir ödeme yöntemi kullanın.",
+      "readingFailed": "Fal oluşturulamadı. Lütfen tekrar deneyin.",
+      "voiceConnectionFailed": "Ses servisine bağlanılamadı. Lütfen mikrofon izinlerinizi kontrol edin."
+    },
+    "form": {
+      "required": "Bu alan zorunludur",
+      "invalidEmail": "Lütfen geçerli bir e-posta adresi girin",
+      "passwordTooShort": "Şifre en az 8 karakter olmalıdır",
+      "passwordMismatch": "Şifreler eşleşmiyor",
+      "invalidInput": "Geçersiz giriş. Lütfen kontrol edin ve tekrar deneyin."
+    },
+    "codes": {
+      "INSUFFICIENT_CREDITS": "Yetersiz kredi",
+      "INVALID_SESSION": "Oturumunuzun süresi doldu. Lütfen tekrar giriş yapın.",
+      "PAYMENT_DECLINED": "Ödeme bankanız tarafından reddedildi",
+      "READING_TIMEOUT": "Fal oluşturma zaman aşımına uğradı",
+      "VOICE_UNAVAILABLE": "Ses servisi geçici olarak kullanılamıyor"
+    }
+  },
   "Common": {
     "loading": "Yükleniyor...",
     "error": "Bir hata oluştu",

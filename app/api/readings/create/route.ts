@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import type { ReadingType, Locale } from '@/lib/supabase/types'
+import { ApiError, handleApiError } from '@/lib/api/errorResponse'
 
 export async function POST(request: Request) {
   try {
@@ -12,7 +13,7 @@ export async function POST(request: Request) {
     } = await supabase.auth.getUser()
 
     if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return ApiError.unauthorized('You must be logged in to create a reading')
     }
 
     // Get request body
@@ -33,15 +34,17 @@ export async function POST(request: Request) {
 
     // Validate input
     if (!reading_type || !question || !locale) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+      return ApiError.validation('Missing required fields: reading_type, question, and locale are required', {
+        missing: [!reading_type && 'reading_type', !question && 'question', !locale && 'locale'].filter(Boolean),
+      })
     }
 
     if (!['coffee', 'tarot'].includes(reading_type)) {
-      return NextResponse.json({ error: 'Invalid reading type' }, { status: 400 })
+      return ApiError.invalidInput('reading_type', 'Must be either "coffee" or "tarot"')
     }
 
     if (!is_voice_session && question.length > 500) {
-      return NextResponse.json({ error: 'Question too long' }, { status: 400 })
+      return ApiError.invalidInput('question', 'Must be 500 characters or less')
     }
 
     // Get user profile
@@ -52,15 +55,12 @@ export async function POST(request: Request) {
       .single()
 
     if (profileError || !profile) {
-      return NextResponse.json({ error: 'User profile not found' }, { status: 404 })
+      return ApiError.notFound('User profile')
     }
 
     // Check if user has credits
     if (profile.available_credits < 1) {
-      return NextResponse.json(
-        { error: 'Insufficient credits. Please purchase more credits to continue.' },
-        { status: 403 }
-      )
+      return ApiError.insufficientCredits(1, profile.available_credits)
     }
 
     // Deduct credits using database function
@@ -70,10 +70,7 @@ export async function POST(request: Request) {
     })
 
     if (deductError || !creditDeducted) {
-      return NextResponse.json(
-        { error: 'Failed to deduct credits. Please try again.' },
-        { status: 500 }
-      )
+      return ApiError.processingError('Failed to deduct credits', { error: deductError?.message })
     }
 
     // Get client IP and user agent for tracking
@@ -106,7 +103,7 @@ export async function POST(request: Request) {
         p_credits: 1,
       })
 
-      return NextResponse.json({ error: 'Failed to create reading' }, { status: 500 })
+      return ApiError.processingError('Failed to create reading', { error: readingError?.message })
     }
 
     // Trigger AI reading generation in background
@@ -129,27 +126,6 @@ export async function POST(request: Request) {
       message: 'Reading created successfully. Processing has started.',
     })
   } catch (error) {
-    console.error('Error creating reading:', error)
-
-    // Log error to database
-    try {
-      const supabase = await createClient()
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-
-      await supabase.from('error_logs').insert({
-        user_id: user?.id || null,
-        error_type: 'reading_creation_error',
-        error_message: error instanceof Error ? error.message : 'Unknown error',
-        error_stack: error instanceof Error ? error.stack : null,
-        endpoint: '/api/readings/create',
-        severity: 'high',
-      })
-    } catch (logError) {
-      console.error('Failed to log error:', logError)
-    }
-
-    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    return handleApiError(error, 'POST /api/readings/create')
   }
 }

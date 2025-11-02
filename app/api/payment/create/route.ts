@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createPayment, PRICING, type PaymentType } from '@/lib/payten/client'
+import { ApiError, handleApiError } from '@/lib/api/errorResponse'
 
 /**
  * Create payment session
@@ -18,14 +19,14 @@ export async function POST(request: Request) {
     } = await supabase.auth.getUser()
 
     if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return ApiError.unauthorized('You must be logged in to create a payment')
     }
 
     // Get payment type from request
     const { type }: { type: PaymentType } = await request.json()
 
     if (!type || !['single', 'subscription', 'topup'].includes(type)) {
-      return NextResponse.json({ error: 'Invalid payment type' }, { status: 400 })
+      return ApiError.invalidInput('type', 'Must be one of: single, subscription, topup')
     }
 
     // Get pricing info
@@ -47,10 +48,9 @@ export async function POST(request: Request) {
       .single()
 
     if (transactionError || !transaction) {
-      return NextResponse.json(
-        { error: 'Failed to create transaction record' },
-        { status: 500 }
-      )
+      return ApiError.processingError('Failed to create transaction record', {
+        error: transactionError?.message,
+      })
     }
 
     // Get app URL for return/cancel URLs
@@ -89,10 +89,10 @@ export async function POST(request: Request) {
         .update({ status: 'failed' })
         .eq('id', transaction.id)
 
-      return NextResponse.json(
-        { error: paymentResponse.error || 'Payment creation failed' },
-        { status: 500 }
-      )
+      return ApiError.paymentFailed(paymentResponse.error || 'Payment creation failed', {
+        paymentProvider: 'payten',
+        transactionId: transaction.id,
+      })
     }
 
     // Update transaction with payment ID
@@ -111,33 +111,6 @@ export async function POST(request: Request) {
       paymentId: paymentResponse.paymentId,
     })
   } catch (error) {
-    console.error('Payment creation error:', error)
-
-    // Log error to database
-    try {
-      const supabase = await createClient()
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-
-      await supabase.from('error_logs').insert({
-        user_id: user?.id || null,
-        error_type: 'payment_creation_error',
-        error_message: error instanceof Error ? error.message : 'Unknown error',
-        error_stack: error instanceof Error ? error.stack : null,
-        endpoint: '/api/payment/create',
-        severity: 'high',
-      })
-    } catch (logError) {
-      console.error('Failed to log error:', logError)
-    }
-
-    return NextResponse.json(
-      {
-        error: 'Failed to create payment',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      },
-      { status: 500 }
-    )
+    return handleApiError(error, 'POST /api/payment/create')
   }
 }

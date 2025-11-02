@@ -40,6 +40,42 @@
     "message": "Stranica nije pronađena",
     "backHome": "Nazad na Početnu"
   },
+  "Error": {
+    "title": "Nešto je pošlo po zlu",
+    "subtitle": "Izvinjavamo se, došlo je do neočekivane greške",
+    "message": "Došlo je do greške prilikom obrade vašeg zahteva. Naš tim je obavešten i radi na ispravci.",
+    "tryAgain": "Pokušaj Ponovo",
+    "goHome": "Idi na Početnu",
+    "refresh": "Osveži Stranicu",
+    "contactSupport": "Kontaktiraj Podršku",
+    "api": {
+      "insufficientCredits": "Nemate dovoljno kredita. Molimo kupite još da biste nastavili.",
+      "unauthorized": "Morate biti prijavljeni da biste pristupili ovoj funkciji.",
+      "forbidden": "Nemate dozvolu za pristup ovom resursu.",
+      "notFound": "Traženi resurs nije pronađen.",
+      "serverError": "Došlo je do greške na serveru. Molimo pokušajte kasnije.",
+      "networkError": "Greška u mreži. Molimo proverite vašu internet konekciju.",
+      "timeout": "Zahtev je trajao predugo. Molimo pokušajte ponovo.",
+      "validationError": "Molimo proverite vaš unos i pokušajte ponovo.",
+      "paymentFailed": "Plaćanje nije uspelo. Molimo pokušajte ponovo ili koristite drugi način plaćanja.",
+      "readingFailed": "Neuspelo generisanje tumačenja. Molimo pokušajte ponovo.",
+      "voiceConnectionFailed": "Neuspela konekcija sa glasovnim servisom. Molimo proverite dozvole za mikrofon."
+    },
+    "form": {
+      "required": "Ovo polje je obavezno",
+      "invalidEmail": "Molimo unesite validnu email adresu",
+      "passwordTooShort": "Lozinka mora imati najmanje 8 karaktera",
+      "passwordMismatch": "Lozinke se ne poklapaju",
+      "invalidInput": "Neispravan unos. Molimo proverite i pokušajte ponovo."
+    },
+    "codes": {
+      "INSUFFICIENT_CREDITS": "Nedovoljno kredita",
+      "INVALID_SESSION": "Vaša sesija je istekla. Molimo prijavite se ponovo.",
+      "PAYMENT_DECLINED": "Plaćanje je odbijeno od strane vaše banke",
+      "READING_TIMEOUT": "Generisanje tumačenja je isteklo",
+      "VOICE_UNAVAILABLE": "Glasovni servis je privremeno nedostupan"
+    }
+  },
   "Common": {
     "loading": "Učitavanje...",
     "error": "Došlo je do greške",

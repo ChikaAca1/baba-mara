@@ -2,19 +2,21 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Geist, Geist_Mono } from "next/font/google";
+// Temporary: Google Fonts disabled for build - using system fonts
+// import { Geist, Geist_Mono } from "next/font/google";
 import { locales } from '@/i18n';
 import "../globals.css";
 
-const geistSans = Geist({
+// Fallback to system fonts for build
+const geistSans = {
   variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+  className: "",
+};
 
-const geistMono = Geist_Mono({
+const geistMono = {
   variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+  className: "",
+};
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
