@@ -183,11 +183,12 @@ export const ApiError = {
  * Error response type guard
  */
 export function isApiError(response: unknown): response is ApiErrorResponse {
-  return (
+  return Boolean(
     response &&
     typeof response === 'object' &&
     'error' in response &&
     typeof response.error === 'object' &&
+    response.error !== null &&
     'code' in response.error &&
     'message' in response.error
   )
